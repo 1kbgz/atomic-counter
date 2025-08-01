@@ -8,6 +8,7 @@ Atomic Counters
 [![PyPI](https://img.shields.io/pypi/v/atomic-counter.svg)](https://pypi.python.org/pypi/atomic-counter)
 
 ## Overview
+
 `atomic-counter` is a rust library for generating a monotonically increasing sequence of integers. Depending on the particular configuration of the counter, the generated sequence will be produce unique numbers down to the nanosecond, regardless of memory state.
 E.g. if you quit the process and recreate a new counter `>1ns` later, your sequence is guaranteed to still be monotonically increasing (but with a gap).
 
@@ -22,7 +23,6 @@ c.next()  # generate next number in sequence
 ```
 
 To create e.g. a daily counter, pass in `base=today in nanos`. As this is a common occurrence for sequences that reset daily, a convenience function `def daily() -> Counter:` is provided.
-
 
 There is also a `TimeCounter` class provided. A 64 bit unsigned integer is created that is monotonically increasing, and allows for converting to microseconds to serve as a timestamp (up to the year 2112). Will break if more than 4096 calls to "next" are called within a single microsecond (which is almost assuredly never going to be physically possible, every call makes a system call to get the current time).
 

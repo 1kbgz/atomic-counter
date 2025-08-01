@@ -11,6 +11,7 @@ Atomic Counters
 `atomic-counter` is a rust library for generating a monotonically increasing sequence of integers. Depending on the particular configuration of the counter, the generated sequence will be produce unique numbers down to the nanosecond, regardless of memory state.
 E.g. if you quit the process and recreate a new counter `>1ns` later, your sequence is guaranteed to still be monotonically increasing (but with a gap).
 
+<<<<<<< before updating
 ## Usage
 
 ```python
@@ -38,5 +39,7 @@ now = datetime.now(timezone.utc)
 assert x_time <= now
 ```
 
+=======
+>>>>>>> after updating
 > [!NOTE]
 > This library was generated using [copier](https://copier.readthedocs.io/en/stable/) from the [Base Python Project Template repository](https://github.com/python-project-templates/base).

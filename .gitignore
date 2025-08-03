@@ -139,10 +139,13 @@ js/dist
 js/lib
 js/node_modules
 js/*.tgz
+atomic_counter/extension
 
 # Jupyter
 .ipynb_checkpoints
 .autoversion
+!atomic_counter/extension/atomic_counter.json
+!atomic_counter/extension/install.json
 atomic_counter/nbextension
 atomic_counter/labextension
 

@@ -14,10 +14,7 @@ path = "src/lib.rs"
 crate-type = ["rlib"]
 
 [dependencies]
-<<<<<<< before updating
 chrono = "0.4.24"
-=======
->>>>>>> after updating
 
 [profile.test.junit]
 path = "junit.xml"

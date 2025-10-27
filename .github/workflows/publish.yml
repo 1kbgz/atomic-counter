@@ -70,7 +70,7 @@ jobs:
           CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=11.0
         if: matrix.os != 'ubuntu-latest'
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: dist-${{matrix.os}}
           path: dist

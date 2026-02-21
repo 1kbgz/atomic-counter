@@ -3,7 +3,7 @@ requires = [
     "hatchling",
     "hatch-rs>=0.1.4",
 ]
-build-backend="hatchling.build"
+build-backend = "hatchling.build"
 
 [project]
 name = "atomic-counter"
@@ -37,16 +37,16 @@ dependencies = []
 develop = [
     "build",
     "bump-my-version",
-    "check-manifest",
+    "check-dist",
     "cibuildwheel",
-    "codespell>=2.4,<2.5",
+    "codespell",
     "hatch-rs",
     "hatchling",
-    "mdformat>=0.7.22,<1.1",
+    "mdformat",
     "mdformat-tables>=1",
     "pytest",
     "pytest-cov",
-    "ruff>=0.9,<0.15",
+    "ruff",
     "twine",
     "ty",
     "uv",
@@ -84,18 +84,6 @@ replace = 'version = "{new_version}"'
 filename = "rust/Cargo.toml"
 search = 'version = "{current_version}"'
 replace = 'version = "{new_version}"'
-
-[tool.check-manifest]
-ignore = [
-    ".copier-answers.yaml",
-    "Cargo.toml",
-    "Cargo.lock",
-    "Makefile",
-    "docs/**/*",
-    "rust/.config/*",
-    "rust/Cargo.lock",
-    "rust/README.md",
-]
 
 [tool.cibuildwheel]
 build = "cp310-*"
@@ -155,16 +143,21 @@ path = "."
 [tool.hatch.build.targets.sdist]
 packages = [
     "atomic_counter",
-    "/rust",
-    "/src",
+    "rust",
+    "Cargo.toml",
+    "Cargo.lock",
 ]
-sources = [
-    ".",
+exclude = [
+    "rust/Makefile",
+    "target",
 ]
 
 [tool.hatch.build.targets.wheel]
 packages = [
     "atomic_counter",
+]
+exclude = [
+    "rust",
 ]
 
 [tool.pytest.ini_options]

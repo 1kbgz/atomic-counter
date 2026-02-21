@@ -141,14 +141,12 @@ js/node_modules
 js/test-results
 js/playwright-report
 js/*.tgz
-atomic_counter/extension
 
 # Jupyter
 .ipynb_checkpoints
 .autoversion
 Untitled*.ipynb
-!atomic_counter/extension/atomic_counter.json
-!atomic_counter/extension/install.json
+atomic_counter/extension
 atomic_counter/nbextension
 atomic_counter/labextension
 
@@ -157,3 +155,7 @@ atomic_counter/labextension
 
 # Rust
 target
+
+# Hydra
+outputs/
+multirun/

@@ -128,9 +128,9 @@ fail_under = 50
 
 [tool.hatch.build]
 artifacts = [
-    "project/*.dll",
-    "project/*.dylib",
-    "project/*.so",
+    "atomic_counter/*.dll",
+    "atomic_counter/*.dylib",
+    "atomic_counter/*.so",
 ]
 
 [tool.hatch.build.sources]

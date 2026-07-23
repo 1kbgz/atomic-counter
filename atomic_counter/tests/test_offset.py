@@ -1,4 +1,4 @@
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 
 from atomic_counter import _BASE, Counter
 
@@ -23,7 +23,7 @@ class TestOffset:
     def test_offset(self):
         nowish = datetime.now(UTC)
         base = datetime(nowish.year, nowish.month, nowish.day, nowish.hour, nowish.minute, nowish.second, nowish.microsecond, tzinfo=UTC)
-        nowish2 = datetime(nowish.year, nowish.month, nowish.day, nowish.hour, nowish.minute, nowish.second + 1, nowish.microsecond, tzinfo=UTC)
+        nowish2 = nowish + timedelta(seconds=1)
         base = int(base.timestamp()) * 1_000_000_000
         nowish = int(nowish.timestamp()) * 1_000_000_000
         nowish2 = int(nowish2.timestamp()) * 1_000_000_000

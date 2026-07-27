@@ -1,4 +1,4 @@
-from atomic_counter import *  # noqa
+from atomic_counter import *
 
 
 def test_all():

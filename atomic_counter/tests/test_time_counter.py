@@ -1,5 +1,5 @@
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from atomic_counter import TimeCounter
 
@@ -9,16 +9,16 @@ class TestTimeCounter:
         counter = TimeCounter()
 
         # Get first counter value and timestamp
-        before_first = datetime.now(timezone.utc)
+        before_first = datetime.now(UTC)
         first = counter.next()
         first_dt = TimeCounter.to_datetime(first)
-        after_first = datetime.now(timezone.utc)
+        after_first = datetime.now(UTC)
 
         # Get second counter value and timestamp
-        before_second = datetime.now(timezone.utc)
+        before_second = datetime.now(UTC)
         second = counter.next()
         second_dt = TimeCounter.to_datetime(second)
-        after_second = datetime.now(timezone.utc)
+        after_second = datetime.now(UTC)
 
         # Basic ordering checks
         assert first < second, "Counter should increase monotonically"
@@ -48,18 +48,18 @@ class TestTimeCounter:
         assert counter.current() & ((1 << 12) - 1) == 2048, "First call to current should have counter value 2048"
 
         # Get a series of interleaved timestamps from counter and datetime
-        dt1 = datetime.now(timezone.utc)
+        dt1 = datetime.now(UTC)
         val1 = counter.next()
 
         # Small sleep to ensure timestamps are different
         time.sleep(0.001)
 
-        dt_mid = datetime.now(timezone.utc)
+        dt_mid = datetime.now(UTC)
         time.sleep(0.001)
 
         val2 = counter.next()
         assert val2 & ((1 << 12) - 1) == 0, "First call on microsecond gets counter 0"
-        dt2 = datetime.now(timezone.utc)
+        dt2 = datetime.now(UTC)
 
         assert val1 < val2, "Counter values must be monotonically increasing"
 

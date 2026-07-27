@@ -1,6 +1,6 @@
 __version__ = "0.1.4"
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta, timezone
 
 from .atomic_counter import Counter, TimeCounter
 
@@ -9,7 +9,7 @@ _BASE = 1577854800000000000
 
 def to_datetime(value: int) -> datetime:
     micros = TimeCounter.decode_timestamp_microseconds(value)
-    return datetime.fromtimestamp(micros / 1e6, tz=timezone.utc)
+    return datetime.fromtimestamp(micros / 1e6, tz=UTC)
 
 
 def get_timedelta(later: int, earlier: int) -> timedelta:
@@ -25,8 +25,8 @@ def daily() -> Counter:
     for a single day, regardless of instantiation time, up to a granularity
     of 1ns"""
 
-    nowish = datetime.now(timezone.utc)
-    base = datetime(nowish.year, nowish.month, nowish.day, tzinfo=timezone.utc)
+    nowish = datetime.now(UTC)
+    base = datetime(nowish.year, nowish.month, nowish.day, tzinfo=UTC)
 
     return Counter(int(base.timestamp()) * 1_000_000_000)
 

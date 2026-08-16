@@ -63,6 +63,10 @@ current_version = "0.1.4"
 commit = true
 tag = true
 commit_args = "-s"
+pre_commit_hooks = [
+    "cargo update --workspace",
+    "git add Cargo.lock",
+]
 
 [[tool.bumpversion.files]]
 filename = "atomic_counter/__init__.py"

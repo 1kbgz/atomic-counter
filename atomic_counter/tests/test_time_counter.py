@@ -1,7 +1,12 @@
 import time
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 
 from atomic_counter import TimeCounter
+
+# The counter's timestamps come from Rust's system clock, which on Windows is a
+# coarser API than the one CPython uses. The two drift against each other by up
+# to a few milliseconds in either direction, so compare with slack.
+SKEW = timedelta(milliseconds=50)
 
 
 class TestTimeCounter:
@@ -25,8 +30,8 @@ class TestTimeCounter:
         assert first_dt < second_dt, "Decoded timestamps should increase monotonically"
 
         # Check that decoded timestamps fall within the expected windows
-        assert before_first <= first_dt <= after_first, "First timestamp out of bounds"
-        assert before_second <= second_dt <= after_second, "Second timestamp out of bounds"
+        assert before_first - SKEW <= first_dt <= after_first + SKEW, "First timestamp out of bounds"
+        assert before_second - SKEW <= second_dt <= after_second + SKEW, "Second timestamp out of bounds"
 
         # Check counter values for timestamps in same microsecond
         third = counter.next()
@@ -67,8 +72,8 @@ class TestTimeCounter:
         counter_dt1 = TimeCounter.to_datetime(val1)
         counter_dt2 = TimeCounter.to_datetime(val2)
 
-        assert dt1 <= counter_dt1 <= dt2, "First counter timestamp out of bounds"
-        assert dt1 <= counter_dt2 <= dt2, "Second counter timestamp out of bounds"
+        assert dt1 - SKEW <= counter_dt1 <= dt2 + SKEW, "First counter timestamp out of bounds"
+        assert dt1 - SKEW <= counter_dt2 <= dt2 + SKEW, "Second counter timestamp out of bounds"
 
         # Check timedelta
         delta_from_counter = TimeCounter.get_timedelta(val1, val2)
@@ -82,5 +87,5 @@ class TestTimeCounter:
         assert delta_reverse.total_seconds() > 0, "Later timestamp minus earlier should be positive"
         assert abs(delta_reverse.total_seconds()) == abs(delta_from_counter.total_seconds()), "Absolute timedeltas should be equal"
 
-        assert delta_reverse <= (dt2 - dt1)
-        assert (dt_mid - dt1) < delta_reverse
+        assert delta_reverse <= (dt2 - dt1) + SKEW
+        assert (dt_mid - dt1) - SKEW < delta_reverse

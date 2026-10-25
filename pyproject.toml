@@ -42,6 +42,7 @@ develop = [
     "hatch-rs",
     "hatchling",
     "mdformat",
+    "mdformat-frontmatter",
     "mdformat-tables>=1",
     "pytest",
     "pytest-cov",
@@ -117,7 +118,7 @@ test-requires = []
 [tool.coverage.run]
 branch = true
 omit = [
-    "atomic_counter/tests/integration/",
+    "atomic_counter/tests/integration/*",
 ]
 
 [tool.coverage.report]
@@ -128,13 +129,6 @@ exclude_also = [
 ]
 ignore_errors = true
 fail_under = 50
-
-[tool.hatch.build]
-artifacts = [
-    "atomic_counter/*.dll",
-    "atomic_counter/*.dylib",
-    "atomic_counter/*.so",
-]
 
 [tool.hatch.build.sources]
 src = "/"
@@ -153,11 +147,20 @@ packages = [
     "Cargo.lock",
 ]
 exclude = [
+    "*.dll",
+    "*.dylib",
+    "*.so",
+    "*.pyd",
     "rust/Makefile",
     "target",
 ]
 
 [tool.hatch.build.targets.wheel]
+artifacts = [
+    "atomic_counter/*.dll",
+    "atomic_counter/*.dylib",
+    "atomic_counter/*.so",
+]
 packages = [
     "atomic_counter",
 ]

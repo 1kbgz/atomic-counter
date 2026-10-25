@@ -16,8 +16,8 @@ def get_timedelta(later: int, earlier: int) -> timedelta:
     return to_datetime(later) - to_datetime(earlier)
 
 
-TimeCounter.to_datetime = staticmethod(to_datetime)
-TimeCounter.get_timedelta = staticmethod(get_timedelta)
+TimeCounter.to_datetime = staticmethod(to_datetime)  # ty: ignore[invalid-assignment]
+TimeCounter.get_timedelta = staticmethod(get_timedelta)  # ty: ignore[invalid-assignment]
 
 
 def daily() -> Counter:

@@ -16,6 +16,3 @@ crate-type = ["rlib"]
 [dependencies]
 chrono = "0.4.44"
 
-[profile.test.junit]
-path = "junit.xml"
-
